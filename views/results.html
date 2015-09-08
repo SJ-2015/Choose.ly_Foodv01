@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Results Page</title>
+	 <meta charset="utf-8" />
+	 <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	 <meta name="viewport" content="width=device-width, initial-scale=1" />
+	 <!-- jQuery -->
+	 <script src="/vendor/jquery/dist/jquery.min.js"></script>
+	 <!-- Underscore -->
+	 <script src="/vendor/underscore/underscore-min.js"></script>
+	 <!-- Bootstrap JS -->
+	 <script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+	 <!-- Bootstrap CSS -->
+	 <link rel="stylesheet" href="/vendor/bootstrap/dist/css/bootstrap.min.css">
+	 
+	 <!-- public folder -->
+	 <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+	 <script src="/static/js/app.js"></script>
+</head>
+<body>
+
+	<table class="table">
+      <caption>Results</caption>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Restuarant Name</th>
+          <th>Food Score</th>
+          <th>Service Score</th>
+          <th>Total Score</th>
+        </tr>
+      </thead>
+    
+      <tbody class="resultList">
+        <tr>
+          <th scope="row">1</th>
+          <td>Sushirittos</td>
+          <td>5</td>
+          <td>6</td>
+          <td>11</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Placeholder</td>
+          <td>Placeholder</td>
+          <td>Placeholder</td>
+          <td>Placeholder</td>
+        </tr>
+      </tbody>
+    
+    </table>
+
+
+
+	<table class="table" id="newEntryRow">
+      <caption>Add a new item</caption>
+      
+      <tbody>
+          <tr>
+          <th scope="row"></th>
+          
+          <form class="tr" method="post">
+	          <td><span class="td"><input type="text" placeholder="Restuarant Name"/></span></td>
+	          <td><span class="td"><input type="text" placeholder="Food Score"/></span></td>
+	          <td><span class="td"><input type="text" placeholder="Service Score"/></span></td>
+	      </form>
+ 
+
+          <td><button class="btn btn-default" type="submit">ADD</button></td>
+        </tr>
+      </tbody>
+    
+    </table>
+
+
+
+
+</body>
+</html>	
