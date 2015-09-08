@@ -2,8 +2,8 @@
 the code here is supposed to take in data using OOP - aim to complete on tuesday 
 Steps: 
 1. first set up code for taking in data as parameter and able to computer
-2. incorporate input from webpage using forms to the compute engine
-3. figure out rendering (including front end web design)
+2. figure out rendering (including front end web design)
+3. incorporate input from webpage using forms to the compute engine
 4. figure out data storage
 */
 
@@ -32,16 +32,23 @@ createOption.prototype.render = function(){
 	$(".resultList").append( "<tr><th>"+"5"+"</th><td>"+this.optionName+"</td><td>"+this.criteria.food+"</td><td>"+this.criteria.service+"</td><td>"+this.score+"</td></tr>" ) 
 }
 
-//tests:
-var optionTwo = new createOption("burritos");
-optionTwo.setCriteria(4,5)
 
-console.log("for "+optionTwo.optionName+" the criteria are "); 
-console.log(optionTwo.criteria);
-console.log("for "+optionTwo.optionName+" the score is "+ optionTwo.score)
-console.log(optionTwo);
 
 $(document).ready(function(){
+	var optionTwo = new createOption("burritos");
+	optionTwo.setCriteria(4,5)
 	optionTwo.render();
+
+	//tests:
+	console.log("for "+optionTwo.optionName+" the criteria are "); 
+	console.log(optionTwo.criteria);
+	console.log("for "+optionTwo.optionName+" the score is "+ optionTwo.score)
+	console.log(optionTwo);
+
+	var optionThree = new createOption("salad");
+	optionThree.setCriteria(6,7)
+	optionThree.render();
+
 })
+
 
