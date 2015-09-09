@@ -33,21 +33,29 @@ createOption.prototype.render = function(){
 }
 
 
-
 $(document).ready(function(){
-	var optionTwo = new createOption("burritos");
-	optionTwo.setCriteria(4,5)
-	optionTwo.render();
 
-	//tests:
-	console.log("for "+optionTwo.optionName+" the criteria are "); 
-	console.log(optionTwo.criteria);
-	console.log("for "+optionTwo.optionName+" the score is "+ optionTwo.score)
-	console.log(optionTwo);
+	$("#addButton").on("click", function(event){
+		//prevent form submission
+		event.preventDefault();
+		//grab the value on page
+		var optionName = document.getElementById("optionNameInput").value;
+		var foodScore = Number(document.getElementById("foodScoreInput").value);
+		var serviceScore = Number(document.getElementById("serviceScoreInput").value);
 
-	var optionThree = new createOption("salad");
-	optionThree.setCriteria(6,7)
-	optionThree.render();
+		var newOption = new createOption(optionName);
+		newOption.setCriteria(foodScore,serviceScore);
+		newOption.render();
+
+	})
+	
+		//2. When the add button is pressed, createOption is called, with optionName being the 'Restaurant Name' text from user
+		//3. same with food and service score.
+		//4. Call your prototype methods
+		//5. Store to DB, when you get a response back from index.js, display the new entry onto your list
+
+
+
 
 })
 
