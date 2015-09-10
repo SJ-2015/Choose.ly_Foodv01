@@ -28,18 +28,34 @@ app.get("/", function (req, res){
   res.sendFile(path.join(views + 'home.html'));
 });
 
-
 //temporary: access allowed at "results" --> review cookie/authoriation/session session for update needed
+//need to make the results page dynamic by users
 app.get("/results", function (req, res){
   // render results.html
   res.sendFile(path.join(views + 'results.html'));
 });
 
+
 //database index path --> send back initail data when page is visited
+/* express version
 app.get("/database", function(req, res){
   //rend choice index as json
   res.send(initialDataStrg);
 })
+*/
+
+//database reroute via Mongod
+app.get("/database", function index(req, res){
+    db.User.find({}, function(err, users_list){
+        if (err) {
+          console.log(err);
+          return res.sendStatus(400);
+        }
+        res.send(users_list);
+
+    })//end of db.find
+})//end of get function
+
 
 app.post("/database", function(req, res){
   //use "option" to refer to object, "choice" for the data (able to act on)
