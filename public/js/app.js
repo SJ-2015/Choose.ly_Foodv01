@@ -5,9 +5,10 @@ Steps:
 2. figure out rendering (including front end web design)
 3. incorporate input from webpage using forms to the compute engine
 4. figure out data storage
+5. figure out how to sort
+5. figure out user authorization and routing
+6. front end = make pretty
 */
-
-var option1 = {optionName: "sushiritto", food: 5, service: 7, total: 12}
 
 //setting prototype function
 function createOption(optionName) {
@@ -46,17 +47,10 @@ $(document).ready(function(){
 		var newOption = new createOption(optionName);
 		newOption.setCriteria(foodScore,serviceScore);
 		newOption.render();
+		console.log(newOption)
 
 	})
-	
-		//2. When the add button is pressed, createOption is called, with optionName being the 'Restaurant Name' text from user
-		//3. same with food and service score.
-		//4. Call your prototype methods
 		//5. Store to DB, when you get a response back from index.js, display the new entry onto your list
-
-
-
-
 })
 
 
