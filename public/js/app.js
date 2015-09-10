@@ -11,27 +11,39 @@ Steps:
 */
 
 //setting prototype function
-function createOption(optionName) {
+function Option(optionName) {
 	this.optionName = optionName;
 	this.criteria = {};
 }
 
 //assign scores to each criteria & sum them
-createOption.prototype.setCriteria = function(foodScore, serviceScore){
+Option.prototype.setCriteria = function(foodScore, serviceScore){
 	this.criteria.food = foodScore;
 	this.criteria.service = serviceScore;
 	this.score = this.sumScore();
 }
 
 //sums up the score
-createOption.prototype.sumScore = function(){
+Option.prototype.sumScore = function(){
 	var sum = this.criteria.food + this.criteria.service;
 	return sum;
 }
 
-createOption.prototype.render = function(){
+Option.prototype.render = function(){
 	$(".resultList").append( "<tr><th>"+"5"+"</th><td>"+this.optionName+"</td><td>"+this.criteria.food+"</td><td>"+this.criteria.service+"</td><td>"+this.score+"</td></tr>" ) 
 }
+
+
+function renderChoices(){
+	//request on the database page
+	$.get("/database", function(res){
+		//choiceIndex is the same as database in server js
+		//may need to remove parse method, to be seen
+		var choiceIndex = JSON.parse(res);
+		//need to grab template and append to parent next
+		//!! comeback to this
+	})//end of GET request
+}//end of renderChoice
 
 
 $(document).ready(function(){
@@ -44,13 +56,21 @@ $(document).ready(function(){
 		var foodScore = Number(document.getElementById("foodScoreInput").value);
 		var serviceScore = Number(document.getElementById("serviceScoreInput").value);
 
-		var newOption = new createOption(optionName);
+		var newOption = new Option(optionName);
 		newOption.setCriteria(foodScore,serviceScore);
-		newOption.render();
-		console.log(newOption)
-
+		/*newOption.render();  //old appending rendering with no database*/
+		var newOptionInJson = JSON.stringify(newOption);
+		console.log(newOptionInJson)
+		
+		// post the new option to database page
+		$.post("/database", $(newOptionInJson))
+			.done(function(res){
+				res.send("new option sent");
+				//response received is updated database;
+		renderChoices();		
+		})
+		//5. Store to DB, when you get a response back from index.js, display the new entry onto your list*/
 	})
-		//5. Store to DB, when you get a response back from index.js, display the new entry onto your list
 })
 
 
