@@ -33,20 +33,29 @@ Option.prototype.render = function(){
 	$(".resultList").append( "<tr><th>"+"5"+"</th><td>"+this.optionName+"</td><td>"+this.criteria.food+"</td><td>"+this.criteria.service+"</td><td>"+this.score+"</td></tr>" ) 
 }
 
-
 function renderChoices(){
 	//request on the database page
 	$.get("/database", function(res){
 		//choiceIndex is the same as database in server js
 		//may need to remove parse method, to be seen
-		var choiceIndex = JSON.parse(res);
+		var choicesIndex = res;
 		//need to grab template and append to parent next
-		//!! comeback to this
+
+		template = _.template($("#choiceDisplay-template").html());
+		choiceList = choicesIndex.map(function(choice){
+			return template(choice);
+		});
+		
+		//clear existing content
+		/*$(".resultList").html("");*/
+		//append new full choice list to the result display
+		$(".resultList").html(choiceList);
 	})//end of GET request
 }//end of renderChoice
 
 
 $(document).ready(function(){
+	renderChoices();	
 
 	$("#addButton").on("click", function(event){
 		//prevent form submission
@@ -67,7 +76,7 @@ $(document).ready(function(){
 			.done(function(res){
 				res.send("new option sent");
 				//response received is updated database;
-		renderChoices();		
+/*		renderChoices();*/		
 		})
 		//5. Store to DB, when you get a response back from index.js, display the new entry onto your list*/
 	})

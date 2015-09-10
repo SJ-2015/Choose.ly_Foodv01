@@ -20,7 +20,7 @@
 </head>
 <body>
 
-	<table class="table">
+	<table class="table" >
       <caption>Results</caption>
       <thead>
         <tr>
@@ -33,6 +33,7 @@
       </thead>
     
       <tbody class="resultList">
+        <!--this this where the results are appended to-->
         <tr>
           <th scope="row">1</th>
           <td>Sushirittos</td>
@@ -40,6 +41,23 @@
           <td>6</td>
           <td>11</td>
         </tr>
+        
+        <tr>
+          <th scope="row">1</th>
+          <td>Sushirittos</td>
+          <td>5</td>
+          <td>6</td>
+          <td>11</td>
+        </tr>
+
+        <tr>
+          <th scope="row">1</th>
+          <td>Sushirittos</td>
+          <td>5</td>
+          <td>6</td>
+          <td>11</td>
+        </tr>
+      
       </tbody>
     
     </table>
@@ -69,6 +87,19 @@
 	    <button type="button" id="rankButton" class="btn btn-primary btn-lg active">Rank</button>
 	</div>
 
+  <!-- choiceDisplay template -->
+  <script type="text/template" id="choiceDisplay-template">
+        <tr class="choiceDisplay">
+          <th scope="row">TBU</th>
+          <td><%= optionName %></td>
+          <td><%= criteria.food %></td>
+          <td><%= criteria.service %></td>
+          <td><%= score %></td>
+        </tr>
+  </script>
 
 </body>
 </html>	
+
+
+
