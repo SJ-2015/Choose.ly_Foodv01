@@ -53,6 +53,8 @@ function renderChoices(){
 	})//end of GET request
 }//end of renderChoice
 
+var newChoiceDummy =
+  {"optionName":"hardcodeDummy","criteria":{"food":5,"service":6},"score":11};
 
 $(document).ready(function(){
 	renderChoices();	
@@ -68,18 +70,19 @@ $(document).ready(function(){
 		var newOption = new Option(optionName);
 		newOption.setCriteria(foodScore,serviceScore);
 		/*newOption.render();  //old appending rendering with no database*/
-		var newOptionInJson = JSON.stringify(newOption);
-		console.log(newOptionInJson)
 		
-		// post the new option to database page
-		$.post("/database", $(newOptionInJson))
+		//stringify so only properties are captured, but not methods
+		var newOptionInJson = JSON.stringify(newOption);
+		console.log(newOptionInJson);
+		
+		// post the new option to database page, need to send back as object via parsing
+		$.post("/database", JSON.parse(newOptionInJson))
 			.done(function(res){
-				res.send("new option sent");
-				//response received is updated database;
-/*		renderChoices();*/		
-		})
+		renderChoices();		
+		}) //end of post
+			
 		//5. Store to DB, when you get a response back from index.js, display the new entry onto your list*/
-	})
-})
+	}) //end of onClick
+})//end of doc.ready
 
 
