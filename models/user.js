@@ -12,7 +12,7 @@ var RestuarantSchema = new Schema({
 });
 
 var userSchema = new Schema ({
-	name: String,
+	userName: String,
 	password: String,
 	email: String,
 	restuarants: [RestuarantSchema]

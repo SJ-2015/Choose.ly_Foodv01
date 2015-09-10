@@ -4,6 +4,7 @@ var express = require("express"),
     _ = require("underscore"),
 	app = express(),
     views = path.join(process.cwd(), "views/");
+var db = require('./models'); //stands for database, goes to index.js within model
 
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -20,11 +21,6 @@ var initialDataStrg =[
   {"optionName":"unhealthyPlace","criteria":{"food":6,"service":4},"score":10},
   {"optionName":"decentPlace","criteria":{"food":1,"service":5},"score":6},
 ];
-
-
-var newChoiceDummy =
-  {"optionName":"hardcodeDummy","criteria":{"food":5,"service":6},"score":11};
-  
 
 // ROUTES //
 app.get("/", function (req, res){
