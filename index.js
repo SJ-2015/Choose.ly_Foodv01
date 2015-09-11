@@ -84,16 +84,16 @@ app.post("/database/:username", function create(req, res){
     }) //end of db.find
 });
 
-app.delete("/database/:username", function destroy(req, res){
+app.delete("/database/:username/:optionID", function destroy(req, res){
     var username = req.params.username;
+    var optionID = req.params.optionID;
     db.User.findOne({userName:username}, function(err, userMatched){
         if(err){
           return console.log(err);
         }
       //note only working with one object data
-      /*  var optionID = req.body.toString();*/
-        var optionID = "55f2d99fec64eb153f1b6556";
-        console.log(optionID);    
+/*        var optionID = req.body.toString();*/
+        console.log("optionID received by server"+optionID);    
         console.log("pre-length is"+userMatched.restuarants.length);
         //walk through User's category.options array to find match
         for(var i = 0; i<userMatched.restuarants.length; i++){

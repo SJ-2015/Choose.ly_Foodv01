@@ -58,18 +58,18 @@ function renderUserChoices(username){
 		}
 	})//end of get /database
 };//end of renderUserchoice
-
+ 
 
 	//onClick function when "X" delete option
 	function deleteOption(context){
 		var username = "tester2";
 		//take id of the bottom for the option
-		var optionID = context.id;
+		var optionID = $(context).data()._id;
 		console.log("optionID:"+optionID);
 		console.log("type of optionID:"+typeof(optionID));
 		//send an AJAX delete request to backend
 		$.ajax({
-			url:'/database/'+username,
+			url:'/database/'+username+'/'+optionID,
 			type:'DELETE',
 			data: {_id: optionID},
 			//if DELETE successful, re-render all options
