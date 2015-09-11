@@ -111,12 +111,10 @@ $(document).ready(function(){
 		console.log(newOptionInJson);
 		
 		// post the new option to database page, need to send back as object via parsing
-		$.post("/database/username", JSON.parse(newOptionInJson))
+		$.post("/database/"+username, JSON.parse(newOptionInJson))
 			.done(function(res){
-		renderUserChoices();		
+			renderUserChoices(username);		
 		}) //end of post
-
-		//5. Store to DB, when you get a response back from index.js, display the new entry onto your list*/
 	}) //end of onClick
 })//end of doc.ready
 

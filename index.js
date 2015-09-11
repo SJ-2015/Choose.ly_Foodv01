@@ -64,14 +64,25 @@ app.get("/results/:usename", function (req, res){
   res.sendFile(path.join(views + 'results.html'));
 });
 
-app.post("/database/:username", function(req, res){
-  //use "option" to refer to object, "choice" for the data (able to act on)
-  console.log(req.body);
-  var newChoice = req.body;
-  console.log(newChoice);
-  //! Skip on adding ID, may need later
-  initialDataStrg.push(newChoice);ß
-  res.send("this is a new choice");
+app.post("/database/:username", function create(req, res){
+    //use "option" to refer to object, "choice" for the data (able to act on)
+    var username =req.params.username;
+    var newChoice = req.body;
+    console.log(newChoice);
+    //find the right user on mongod db
+    //push new choice to there
+    db.User.findOne({userName:username}, function(err, userMatched){
+        if(err){
+          return console.log(err);
+        }
+        //push the new choice to the right user
+        userMatched.restuarants.push(newChoice);
+        //save the user data after new choice is added;
+        userMatched.save(function(err, success){
+            if(err) {return console.log(err);}
+            res.send(newChoice);
+        })//end of .save
+    }) //end of db.find
 });
 
 
