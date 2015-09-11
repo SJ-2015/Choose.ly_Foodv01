@@ -58,32 +58,41 @@ Option.prototype.render = function(){
 
 
 //new mongod and individualzed choices
-function renderUserChoices(){
+function renderUserChoices(username){
 	//get user id from the results/usename page
-	$.get(/results/, function (data, status){
+	$.get("/database/"+username, function (response_data){
+		console.log(response_data.length)
+		//if the user does not exist
+		if (response_data.length<1) {
+			$(".resultList").html("User has no data");
+			return;
+		} else {
+			//grab the list of choices from the user data
+			var userData = response_data;
+			var choicesIndex = userData[0].restuarants;
+			//need to grab template and append to parent next
 
-			$.get("/database/tester1", function(res){
-
-				//grab the list of choices from the user data
-				var choicesIndex = res.restuarants;
-				//need to grab template and append to parent next
-
-				template = _.template($("#choiceDisplay-template").html());
-				choiceList = choicesIndex.map(function(choice){
-					return template(choice);
-				});
-			
-				//clear existing content
-				$(".resultList").html("");
-				//append new full choice list to the result display
-				$(".resultList").html(choiceList);
-			})//end of get /database
-	}); //end of get results/:username		
-} //end of renderUserchoice
+			template = _.template($("#choiceDisplay-template").html());
+			choiceList = choicesIndex.map(function(choice){
+				return template(choice);
+			});
+		
+			//clear existing content
+			$(".resultList").html("");
+			//append new full choice list to the result display
+			$(".resultList").html(choiceList);
+		}
+	})//end of get /database
+};//end of renderUserchoice
 
 
 $(document).ready(function(){
-	renderUserChoices();	
+
+	//will make grabbing of username dynamic
+//append existing data
+	var username = "tester2"
+	renderUserChoices(username);	
+
 
 	$("#addButton").on("click", function(event){
 		//prevent form submission
@@ -102,7 +111,7 @@ $(document).ready(function(){
 		console.log(newOptionInJson);
 		
 		// post the new option to database page, need to send back as object via parsing
-		$.post("/database", JSON.parse(newOptionInJson))
+		$.post("/database/username", JSON.parse(newOptionInJson))
 			.done(function(res){
 		renderUserChoices();		
 		}) //end of post
