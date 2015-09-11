@@ -30,11 +30,6 @@ Option.prototype.sumScore = function(){
 	return sum;
 }
 
-//for signin/signup page:
-
-
-
-
 
 //for result/username pages:
 //new mongod and individualzed choices
