@@ -1,3 +1,4 @@
+
 /*
 the code here is supposed to take in data using OOP - aim to complete on tuesday 
 Steps: 
@@ -29,35 +30,60 @@ Option.prototype.sumScore = function(){
 	return sum;
 }
 
+/* old rendering not used
 Option.prototype.render = function(){
 	$(".resultList").append( "<tr><th>"+"5"+"</th><td>"+this.optionName+"</td><td>"+this.criteria.food+"</td><td>"+this.criteria.service+"</td><td>"+this.score+"</td></tr>" ) 
-}
+}*/
 
-function renderChoices(){
-	//request on the database page
-	$.get("/database", function(res){
-		//choiceIndex is the same as database in server js
-		//may need to remove parse method, to be seen
-		var choicesIndex = res;
-		//need to grab template and append to parent next
+//old choices pre-user and Mongod
+// function renderChoices(){
+// 	//request on the database page
+// 	$.get("/database", function(res){
+// 		//choiceIndex is the same as database in server js
+// 		//may need to remove parse method, to be seen
+// 		var choicesIndex = res;
+// 		//need to grab template and append to parent next
 
-		template = _.template($("#choiceDisplay-template").html());
-		choiceList = choicesIndex.map(function(choice){
-			return template(choice);
-		});
+// 		template = _.template($("#choiceDisplay-template").html());
+// 		choiceList = choicesIndex.map(function(choice){
+// 			return template(choice);
+// 		});
 		
-		//clear existing content
-		/*$(".resultList").html("");*/
-		//append new full choice list to the result display
-		$(".resultList").html(choiceList);
-	})//end of GET request
-}//end of renderChoice
+// 		//clear existing content
+// 		$(".resultList").html("");
+// 		//append new full choice list to the result display
+// 		$(".resultList").html(choiceList);
+// 	})//end of GET request
+// }//end of renderChoice
 
-var newChoiceDummy =
-  {"optionName":"hardcodeDummy","criteria":{"food":5,"service":6},"score":11};
+
+//new mongod and individualzed choices
+function renderUserChoices(){
+	//get user id from the results/usename page
+	$.get(/results/, function (data, status){
+
+			$.get("/database/tester1", function(res){
+
+				//grab the list of choices from the user data
+				var choicesIndex = res.restuarants;
+				//need to grab template and append to parent next
+
+				template = _.template($("#choiceDisplay-template").html());
+				choiceList = choicesIndex.map(function(choice){
+					return template(choice);
+				});
+			
+				//clear existing content
+				$(".resultList").html("");
+				//append new full choice list to the result display
+				$(".resultList").html(choiceList);
+			})//end of get /database
+	}); //end of get results/:username		
+} //end of renderUserchoice
+
 
 $(document).ready(function(){
-	renderChoices();	
+	renderUserChoices();	
 
 	$("#addButton").on("click", function(event){
 		//prevent form submission
@@ -78,9 +104,9 @@ $(document).ready(function(){
 		// post the new option to database page, need to send back as object via parsing
 		$.post("/database", JSON.parse(newOptionInJson))
 			.done(function(res){
-		renderChoices();		
+		renderUserChoices();		
 		}) //end of post
-			
+
 		//5. Store to DB, when you get a response back from index.js, display the new entry onto your list*/
 	}) //end of onClick
 })//end of doc.ready

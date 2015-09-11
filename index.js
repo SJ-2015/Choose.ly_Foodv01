@@ -56,6 +56,16 @@ app.get("/database", function index(req, res){
     })//end of db.find
 })//end of get function
 
+//new individual result page via Mongod
+app.get("/database/:username", function( req, res){
+    var username =req.params.username;
+    console.log(username);
+    
+    //find Mongod database for each user
+
+   
+
+})//end of get /database/individual
 
 app.post("/database", function(req, res){
   //use "option" to refer to object, "choice" for the data (able to act on)
@@ -63,9 +73,10 @@ app.post("/database", function(req, res){
   var newChoice = req.body;
   console.log(newChoice);
   //! Skip on adding ID, may need later
-  initialDataStrg.push(newChoice);
+  initialDataStrg.push(newChoice);ß
   res.send("this is a new choice");
 });
+
 
 //start server
 app.listen(3000, function (){
