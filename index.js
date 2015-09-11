@@ -47,7 +47,6 @@ app.get("/database", function index(req, res){
 //new individual result page via Mongod
 app.get("/database/:username", function( req, res){
     var username =req.params.username;
-    console.log(username);
 
     db.User.find({userName:username}, function(err, userMatched){
         if (err) {
@@ -84,6 +83,31 @@ app.post("/database/:username", function create(req, res){
         })//end of .save
     }) //end of db.find
 });
+
+app.delete("/database/:username", function destroy(req, res){
+    var username = req.params.username;
+
+    db.User.findOne({userName:username}, function(err, userMatched){
+
+        if(err){
+          return console.log(err);
+        }
+      //note only working with one object data
+      /*  var optionID = req.body.toString();*/
+        var optionID = "55f273f68efeead7f4ad8751";
+        console.log(optionID);    
+        //walk through User's category.options array to find match
+        for(var i = 0; i<userMatched.restuarants.length; i++){
+              //if id of option match
+              console.log(userMatched.restuarants[i]._id.toString());
+            if(userMatched.restuarants[i]._id.toString()=== optionID) {
+            userMatched.restuarants[i].remove();
+            console.log("option removed");
+            break;  
+            };//end if if statement
+        }//end of for loop
+    });//end of db.find
+})//end of delete
 
 
 //start server

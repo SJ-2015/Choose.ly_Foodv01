@@ -30,32 +30,6 @@ Option.prototype.sumScore = function(){
 	return sum;
 }
 
-/* old rendering not used
-Option.prototype.render = function(){
-	$(".resultList").append( "<tr><th>"+"5"+"</th><td>"+this.optionName+"</td><td>"+this.criteria.food+"</td><td>"+this.criteria.service+"</td><td>"+this.score+"</td></tr>" ) 
-}*/
-
-//old choices pre-user and Mongod
-// function renderChoices(){
-// 	//request on the database page
-// 	$.get("/database", function(res){
-// 		//choiceIndex is the same as database in server js
-// 		//may need to remove parse method, to be seen
-// 		var choicesIndex = res;
-// 		//need to grab template and append to parent next
-
-// 		template = _.template($("#choiceDisplay-template").html());
-// 		choiceList = choicesIndex.map(function(choice){
-// 			return template(choice);
-// 		});
-		
-// 		//clear existing content
-// 		$(".resultList").html("");
-// 		//append new full choice list to the result display
-// 		$(".resultList").html(choiceList);
-// 	})//end of GET request
-// }//end of renderChoice
-
 
 //new mongod and individualzed choices
 function renderUserChoices(username){
@@ -86,13 +60,32 @@ function renderUserChoices(username){
 };//end of renderUserchoice
 
 
+	//onClick function when "X" delete option
+	function deleteOption(context){
+		var username = "tester2";
+		//take id of the bottom for the option
+		var optionID = context.id;
+		console.log(optionID);
+		//send an AJAX delete request to backend
+		$.ajax({
+			url:'/database/'+username,
+			type:'DELETE',
+			data: {_id: optionID},
+			//if DELETE successful, re-render all options
+			success: function(res)
+			{
+				//need to make username dynamics
+				renderUserChoices(username);
+			} //end of success
+		});//end of ajax request
+	}//end of deleteOption
+
 $(document).ready(function(){
 
 	//will make grabbing of username dynamic
 //append existing data
 	var username = "tester2"
 	renderUserChoices(username);	
-
 
 	$("#addButton").on("click", function(event){
 		//prevent form submission
@@ -116,6 +109,9 @@ $(document).ready(function(){
 			renderUserChoices(username);		
 		}) //end of post
 	}) //end of onClick
+
+
+
 })//end of doc.ready
 
 
