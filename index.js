@@ -92,7 +92,6 @@ app.delete("/database/:username/:optionID", function destroy(req, res){
           return console.log(err);
         }
       //note only working with one object data
-/*        var optionID = req.body.toString();*/
         console.log("optionID received by server"+optionID);    
         console.log("pre-length is"+userMatched.restuarants.length);
         //walk through User's category.options array to find match
