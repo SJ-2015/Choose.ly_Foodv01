@@ -86,16 +86,15 @@ app.post("/database/:username", function create(req, res){
 
 app.delete("/database/:username", function destroy(req, res){
     var username = req.params.username;
-
     db.User.findOne({userName:username}, function(err, userMatched){
-
         if(err){
           return console.log(err);
         }
       //note only working with one object data
       /*  var optionID = req.body.toString();*/
-        var optionID = "55f273f68efeead7f4ad8751";
+        var optionID = "55f2d99fec64eb153f1b6556";
         console.log(optionID);    
+        console.log("pre-length is"+userMatched.restuarants.length);
         //walk through User's category.options array to find match
         for(var i = 0; i<userMatched.restuarants.length; i++){
               //if id of option match
@@ -106,6 +105,8 @@ app.delete("/database/:username", function destroy(req, res){
             break;  
             };//end if if statement
         }//end of for loop
+        userMatched.save();
+        console.log("post-remove length is"+userMatched.restuarants.length);
     });//end of db.find
 })//end of delete
 

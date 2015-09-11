@@ -35,7 +35,7 @@ Option.prototype.sumScore = function(){
 function renderUserChoices(username){
 	//get user id from the results/usename page
 	$.get("/database/"+username, function (response_data){
-		console.log(response_data.length)
+		console.log("user data length is "+response_data.length)
 		//if the user does not exist
 		if (response_data.length<1) {
 			$(".resultList").html("User has no data");
@@ -65,7 +65,8 @@ function renderUserChoices(username){
 		var username = "tester2";
 		//take id of the bottom for the option
 		var optionID = context.id;
-		console.log(optionID);
+		console.log("optionID:"+optionID);
+		console.log("type of optionID:"+typeof(optionID));
 		//send an AJAX delete request to backend
 		$.ajax({
 			url:'/database/'+username,
@@ -74,7 +75,7 @@ function renderUserChoices(username){
 			//if DELETE successful, re-render all options
 			success: function(res)
 			{
-				//need to make username dynamics
+				console.log("delete is successful")
 				renderUserChoices(username);
 			} //end of success
 		});//end of ajax request
