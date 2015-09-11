@@ -1,3 +1,4 @@
+//this is the heroku version
 var db = require("./models");
 
 
